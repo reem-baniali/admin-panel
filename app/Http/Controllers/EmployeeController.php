@@ -6,6 +6,7 @@ use App\Models\Employee;
 use App\Models\Company;
 use Illuminate\Http\Request;
 use PhpParser\Node\Stmt\Return_;
+use Illuminate\Pagination\Paginator;
 
 class EmployeeController extends Controller
 {
@@ -16,7 +17,7 @@ class EmployeeController extends Controller
      */
     public function index()
     {
-        $employees= Employee::all();
+        $employees= Employee::paginate(10);
         $companies= Company::all();
         $update=false;
        return view('admin.manage_employees',compact('employees','update','companies'));
@@ -75,8 +76,9 @@ class EmployeeController extends Controller
     public function edit($id)
     {
         $employee = Employee::find($id); 
-        $employees= Employee::all();
         $companies= Company::all();
+        $employees= Employee::paginate(10);
+
         $update=true;
 
         return view('admin.manage_employees',compact('employee','employees','update','companies'));
@@ -104,7 +106,7 @@ class EmployeeController extends Controller
      
         $employee->update($input);
         session()->flash('Company_create_massage','Company was created');
-        return back();
+        return redirect()->route('employees.index');
     }
 
     /**

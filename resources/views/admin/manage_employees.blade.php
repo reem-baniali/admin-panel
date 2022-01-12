@@ -118,6 +118,7 @@
                                                 <th> Last Name</th>
                                                 <th> Email</th>
                                                 <th> Phone</th>
+                                                <th> Company</th>
                                                 <th></th>
                                                 
                                             </tr>
@@ -132,6 +133,8 @@
                                  <td> {{ $employee->last_name }} </td>
                                  <td> {{ $employee->email }} </td>
                                  <td> {{ $employee->phone }} </td>
+                                 <td> {{ $employee->company->name }} </td>
+
                                                    
                               <td>
                                 <div class="table-data-feature">
@@ -153,11 +156,16 @@
                                          @endforeach    
                                         </tbody>
                                     </table>
+                                    
                                 </div>
+                                
+                            </div>
+                            <div style="display:flex; justify-content:center; margin-top:10px ">
+                              {!! $employees->links() !!}
                             </div>
                         </div>
 
                     </div>
                     </div>
-
+                   
 @endsection

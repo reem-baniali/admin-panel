@@ -16,7 +16,7 @@ class CompanyController extends Controller
      */
     public function index()
     {
-        $companies=Company::paginate(1);
+        $companies=Company::paginate(10);
         $update=false;
         return view('admin.manage_companies',compact('companies','update'));
     }
@@ -76,7 +76,7 @@ class CompanyController extends Controller
     public function edit(Company $compan,$id)
     {
         $company = Company::find($id);
-        $companies = Company::all();
+        $companies=Company::paginate(10);
         $update=true;
         return view('admin.manage_companies',compact('company','update','companies'));
     }
@@ -103,7 +103,7 @@ class CompanyController extends Controller
         }
         $company->update($input);
         session()->flash('Company_create_massage','Company was created');
-        return redirect()->back();
+        return  redirect()->route('companies.index');
     }
 
     /**
